@@ -13,5 +13,6 @@ module.exports = {
   // ...
 };
 module.exports = defineConfig({
+  publicPath: '/Project/',
   transpileDependencies: true
 });

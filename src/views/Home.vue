@@ -2,17 +2,19 @@
   <div class="HomePage">
     <canvas ref="canvas"></canvas>
     <img src="@/assets/images/bg.jpg" class="bg" />
+    <audio src='@/assets/audios/bgm.mp3' ref="audio" loop="true" />
     <div class="HomePage-main">
       <Roll
         :content="item.data"
         :isOpen="item.active"
+        :playMusic="shoes"
         v-for="(item, idx) in list"
         :key="idx"
+        @videoIsOpen="videoIsOpenFun"
       ></Roll>
-      <span class="music" @click="handleClick()">off/on</span>
-      <div v-if="shoes">
-        <div v-html="audios"></div>
-      </div>
+      <span class="music" @click="handleClickMusic()">
+        <img src="@/assets/images/music.png" alt="">
+      </span>
       <div class="map">
         <ul>
           <li
@@ -35,7 +37,6 @@
 <script>
 import Roll from '@/components/Roll.vue';
 import '@/assets/less/Home.less';
-import bgm from '@/assets/audios/bgm.mp3';
 export default {
   name: 'HomePage',
   components: {
@@ -44,9 +45,7 @@ export default {
   data() {
     return {
       clickS: 0, //点击次数
-      shoes: false,
-      audios: '',
-      bgm: bgm,
+      shoes: false,//是否播放
       list: [
         {
           data: {
@@ -143,17 +142,20 @@ export default {
       this.$refs.canvas.width = this.canvasWidth;
       this.$refs.canvas.height = this.canvasHeight;
     },
-    //交互
-    handleClick() {
-      console.log(1);
+    
+    handleClickMusic() {
+      console.log(2111);
       if (this.shoes == false) {
         this.shoes = true;
-        this.audios =
-          '<head><audio src=' + bgm + ' play="true" loop="true" autoplay="autoplay"/>  </head>';
+        this.$refs.audio.play()
       } else if (this.shoes == true) {
         this.shoes = false;
-        this.audios = '';
+        this.$refs.audio.pause()
       }
+    },
+    videoIsOpenFun(params){
+      console.log(params)
+      params? this.$refs.audio.play() : this.$refs.audio.pause()
     },
     clickPoint(item) {
       this.clickS = this.clickS + 1;
@@ -168,7 +170,8 @@ export default {
           item.active = true;
         }, 500);
       }
-      this.clickS === 1 ? this.handleClick() : '';
+
+      this.clickS === 1 ? this.$refs.audio.play() : '';
     }
   }
 };

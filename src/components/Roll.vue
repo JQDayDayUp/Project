@@ -11,7 +11,8 @@
       <img src="@/assets/images/ht.png" alt="视频讲解">
     </div>
     <a-modal v-model="visible" :title="content.title" width="800px" :footer="null" :destroyOnClose="true"  :after-close="handleCancel" >
-      <video src="@/assets/videos/wuhuxian.mp4" ref="myVideo" :controls="true" ></video>
+      <!-- <video src="@/assets/videos/wuhuxian.mp4" ref="myVideo" :controls="true" ></video> -->
+      <iframe id="iframeId" height=500 width=750 src='https://player.youku.com/embed/XMzg0MDkyNTQ5Mg==?rel=0' frameborder=0 allowfullscreen="true"></iframe>
     </a-modal>
   </div>
 </template>
@@ -39,7 +40,7 @@ export default {
           // 俩秒之后让模块消失
           // eslint-disable-next-line vue/no-mutating-props
           // this.playMusic=false;
-          this.$refs.myVideo.play()
+          // this.$refs.myVideo.play()
         }, 500);
     },
     handleCancel(){

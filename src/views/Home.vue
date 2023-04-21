@@ -26,7 +26,14 @@
                 ? item.map + ' ' + item.map + '-' + (idx + 1) + ' ' + 'active'
                 : item.map + ' ' + item.map + '-' + (idx + 1)
             "
-          ></li>
+          >
+          <a-tooltip placement="left">
+            <template #title>
+              <span>{{ item.data.title }}</span>
+            </template>
+            <span class="nbsp"></span>
+          </a-tooltip>
+        </li>
         </ul>
         <img src="@/assets/images/mp_wh.png" />
       </div>
